@@ -1,12 +1,11 @@
 import unittest
 
-from mongo_validator.errors import DocumentValidationError
 from mongo_validator.document import Document
+from mongo_validator.errors import DocumentValidationError
+from mongo_validator import fields
 
 class FakeDocument(Document):
-    schema = {
-        "test_field":{"type":"string", "required":True}
-    }
+    test_field = fields.StringField(required=True)
 
 class TestDocument(unittest.TestCase):
     def setUp(self):
