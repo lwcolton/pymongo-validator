@@ -2,6 +2,8 @@ import collections
 
 import cerberus
 
+from .errors import DocumentValidationError
+
 class Document(collections.UserDict):
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
@@ -12,7 +14,7 @@ class Document(collections.UserDict):
 		if validator.validate(self.data):
 			return True
 		else:
-			return validator.errors
+			raise DocumentValidationError(validator.errors)
 
 	def _get_schema_dict(self):
 		if hasattr(self, "schema"):
