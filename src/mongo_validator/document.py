@@ -12,7 +12,7 @@ class DocumentWrapperCursor(object):
     def __iter__(self):
         return self.pymongo_cursor
     def next(self):
-        return self.document_class.new(values=super().next())
+        return self.document_class.new(values=self.pymongo_cursor.next())
     def __getattr__(self, name):
         return getattr(self.pymongo_cursor, name)
 
@@ -34,7 +34,6 @@ class Document(collections.UserDict):
 		self.data = values
 
 		self._schema_dict = self._get_schema_dict()
-		return 
 
 	@classmethod
 	def find(cls, collection, *args, **kwargs):
