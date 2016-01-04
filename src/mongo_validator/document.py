@@ -34,11 +34,12 @@ class Document(collections.UserDict):
 		self._schema_dict = self._get_schema_dict()
 		return 
 
-	def find(self, collection, *args, **kwargs):
+	@classmethod
+	def find(cls, collection, *args, **kwargs):
 		cursor = collection.find(*args, **kwargs)
 		if cursor is None:
 			return []
-		DocumentWrapperCursor(cursor, type(self))
+		DocumentWrapperCursor(cursor, cls)
 
 	def validate(self):
 		validator = cerberus.Validator(self._schema_dict)
