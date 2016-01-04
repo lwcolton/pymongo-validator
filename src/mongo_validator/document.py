@@ -16,8 +16,9 @@ class DocumentWrapperCursor(object):
     def __getattr__(self, name):
         return getattr(self.pymongo_cursor, name)
 
-class Document(collections.UserDict):
+class Document(dict):
     def __init__(self, **kwargs):
+        super().__init__()
         self._new(values=kwargs)
 
     @classmethod
@@ -32,7 +33,7 @@ class Document(collections.UserDict):
         if rename_id_field and "_id" in values:
             values["id"] = str(values["_id"])
             del values["_id"]
-        self.data = values
+        self.update(values)
 
         self._schema_dict = self._get_schema_dict()
 
