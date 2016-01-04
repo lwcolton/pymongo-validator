@@ -15,7 +15,10 @@ class Document(collections.UserDict):
 		if validator.validate(self.data):
 			return True
 		else:
-			raise DocumentValidationError(validator.errors)
+			message = "Error validating fields: {0}".format(
+				list(validator.errors.keys())
+			)
+			raise DocumentValidationError(validator.errors, message)
 
 	def _get_schema_dict(self):
 		"""Retrieves a cerberus schema dict from field attributes"""

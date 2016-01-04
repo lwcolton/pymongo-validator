@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import os
 
 setup(
     name = "python-mongo-validator",
@@ -8,4 +7,5 @@ setup(
     author = "Colton Leekley-Winslow",
     package_dir = {"":"src"},
     packages = find_packages("src"),
+    install_requires = ["cerberus"]
 )
