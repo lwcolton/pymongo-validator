@@ -5,10 +5,40 @@ import cerberus
 from .errors import DocumentValidationError
 from . import fields
 
+class DocumentWrapperCursor(object):
+    def __init__(self, pymongo_cursor, document_class):
+    	self.pymongo_cursor_next = pymongo_cursor.next
+    	self.document_class = document_class
+    def __iter__(self):
+        return self
+    def next(self):
+        return self.document_class.new(values=super().next())
+
 class Document(collections.UserDict):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
+	def __init__(self, **kwargs):
+		self._new(values=kwargs)
+
+	@classmethod
+	def new(cls, **kwargs):
+		new_instance = cls()
+		cls._new(**kwargs)
+
+	def _new(self, values=None, rename_id_field=True):
+		if values is None:
+			values = {}
+		if rename_id_field and "_id" in values:
+			values["id"] = str(values["_id"])
+			del values["_id"]
+		self.data = values
+
 		self._schema_dict = self._get_schema_dict()
+		return 
+
+	def find(self, collection, *args, **kwargs):
+		cursor = collection.find(*args, **kwargs)
+		if cursor is None:
+			return []
+		DocumentWrapperCursor(cursor, type(self))
 
 	def validate(self):
 		validator = cerberus.Validator(self._schema_dict)
