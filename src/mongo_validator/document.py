@@ -39,7 +39,7 @@ class Document(collections.UserDict):
 		cursor = collection.find(*args, **kwargs)
 		if cursor is None:
 			return []
-		DocumentWrapperCursor(cursor, cls)
+		return DocumentWrapperCursor(cursor, cls)
 
 	def validate(self):
 		validator = cerberus.Validator(self._schema_dict)
