@@ -29,5 +29,6 @@ scratch.validate()
 mongo_client = MongoClient("localhost")
 
 scratch.save(mongo_client.petstore.pets)
+```
 
 
