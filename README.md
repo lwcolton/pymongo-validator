@@ -1,7 +1,7 @@
 # mongo_validator
 
 A class-based Python 3 ORM for MongoDB.
-Document class sublasses UserDict for ultimate compatibility with extrnal libraries.
+Document class subclasses UserDict for ultimate compatibility with extrnal libraries.
 
 Example:
 
