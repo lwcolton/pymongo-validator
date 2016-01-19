@@ -6,6 +6,9 @@ class BaseField(collections.UserDict):
             type_name = type(self).__name__.lower().rstrip("field")
         super().__init__(*args, type=type_name, **kwargs)
 
+class SchemaField(dict):
+    pass
+
 class IntegerField(BaseField):
     pass
 
@@ -14,3 +17,4 @@ class DictField(BaseField):
 
 class StringField(BaseField):
     pass
+

@@ -44,7 +44,7 @@ class Document(dict):
 
     def validate(self):
         validator = cerberus.Validator(self._schema_dict)
-        if validator.validate(self.data):
+        if validator.validate(self):
             return True
         else:
             message = "Error validating fields: {0}".format(
