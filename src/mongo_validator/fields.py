@@ -18,3 +18,8 @@ class DictField(BaseField):
 class StringField(BaseField):
     pass
 
+class ListField(BaseField):
+    pass
+
+class BooleanField(BaseField):
+    pass
