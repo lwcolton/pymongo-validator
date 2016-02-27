@@ -42,6 +42,11 @@ class Document(dict):
             return []
         return DocumentWrapperCursor(cursor, cls)
 
+    @classmethod
+    def find_one(cls, collection, *args, **kwargs):
+        document_dict = collection.find_one(*args, **kwargs)
+        return cls.new(values=document_dict)
+
     def validate(self):
         validator = cerberus.Validator(self._schema_dict)
         if validator.validate(self):
