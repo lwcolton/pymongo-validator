@@ -22,7 +22,7 @@ class Document(dict):
     @classmethod
     def new(cls, values, **kwargs):
         new_instance = cls()
-        new_instance._new(values=values)
+        new_instance._new(values=values, **kwargs)
         return new_instance
 
     def _new(self, values=None, rename_id_field=True):
